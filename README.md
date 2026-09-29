@@ -31,6 +31,20 @@ The palette doesn't depend on the wallpaper, so any image works. Set one with Ko
 
 A toggle copies only the files for the new mode, so your wallpaper stays as it is. It works out the current mode from the Airy Aurora GTK block in `~/.config/hypr/UserConfigs/ENVariables.conf`. It rewrites that block and also pushes it live with `hyprctl keyword env`, so GTK apps you open afterwards match the new mode without logging out. Waybar and swaync are restarted with the new values too, so windows they open (like the HINT! quick tips) follow the mode. GTK apps that are already open keep their old theme until you restart them. A lock stops a double click from running two switches at once.
 
+## Kanji add-on (optional)
+
+A calmer waybar with Japanese icons. It's off by default.
+
+```bash
+./airy.sh kanji on     # ./airy.sh kanji off to undo
+```
+
+- **Icons:** single kanji replace the icon glyphs: 時 clock, 網 network (断 when down), 算 CPU, 記 RAM, 盤 disk, 強/中/弱 power profile, 音 volume (静 when muted), 光/夕 night light, 錠 lock, and 昼/夜 for the light/dark button. In the menu drawer, 書 is files, 端 terminal, 覧 browser, 設 settings and 新 dots update. Three spots get drawn motifs from the bundled AiryJP font: a narutomaki swirl for the app menu, sushi for notifications (crossed out in do-not-disturb), and a torii gate for power.
+- **Less clutter:** the weather shows only the temperature, and the weather kanji (晴 月 曇 雨 雪 雷) appear in its tooltip. The CPU temperature leaves the hardware drawer, and the HINT! and idle-inhibitor buttons are removed from the `[TOP] Default` layout. <kbd>SUPER</kbd> + <kbd>H</kbd> still opens the hints.
+- **How it installs:** it copies `addons/kanji/` over your home directory: waybar `Modules`, `ModulesCustom`, `ModulesGroups` and `configs/[TOP] Default`, KooL's `Weather.py`, `WeatherWrap.sh` and `Hyprsunset.sh`, and the font to `~/.local/share/fonts/AiryJP/`. Replaced files are saved as `<name>.bak-pre-kanji`. A marker in `~/.local/state/airy-aurora/kanji` keeps it on through later full applies. `off` puts back Airy's `ModulesCustom` and the saved originals, and removes the font.
+- **Needs:** a Japanese CJK font. Kanji fall back to it through fontconfig, and Noto Sans CJK JP gives the Japanese glyph forms (Fedora: `google-noto-sans-cjk-fonts`).
+- **Font source:** `addons/kanji-font/build.py` draws every icon as SVG strokes and builds `AiryJP.ttf` into the add-on (needs Inkscape, fontTools, cairosvg and Pillow). It has 31 icons, including unused ones like a koi, lantern and wind chime, and `build.py preview` renders a sheet of them all. Icons map to U+10F000 onward in list order, so add new ones at the end.
+
 ## Palette
 
 | Role | Light | Dark |
@@ -63,9 +77,11 @@ Dark-mode text colors are at least 5:1 contrast against the background. The full
 | `common/` | Files that are the same in both modes: waybar `ModulesCustom`, `WaybarCava.sh`, `WaybarPlayerGradient.py`, `WindowRules.conf` |
 | `light/` | Light palette, waybar style, kitty theme, hyprlock, swaync, rofi, decorations and the wallust-calling scripts |
 | `dark/` | The same set for dark |
+| `addons/kanji/` | The optional kanji add-on, installed by `./airy.sh kanji on` |
+| `addons/kanji-font/` | Source for the add-on's AiryJP icon font |
 
 ## Notes
 
 - Every `wallust cs` call gets the full path to the scheme file. Given only a name, wallust errors out with "many matches" when a similarly named file, such as a backup, sits next to the scheme. The wallpaper scripts (`scripts/WallustSwww.sh` and `UserScripts/WallpaperEffects.sh`) do the same, so picking a new wallpaper keeps the current mode's palette.
-- KooL upgrades overwrite `scripts/` and `waybar/ModulesCustom`. Re-run `./airy.sh light` or `./airy.sh dark` after one.
+- KooL upgrades overwrite `scripts/` and `waybar/ModulesCustom`. Re-run `./airy.sh light` or `./airy.sh dark` after one; that also re-applies the kanji add-on if it's on. The add-on's copies of KooL files come from dots v2.3.20, so after an upgrade that changes them, turning the add-on on would bring back the older versions.
 - Don't use KooL's `DarkLight.sh`, because it fights the fixed palette.
