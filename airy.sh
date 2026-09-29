@@ -54,6 +54,8 @@ hyprctl reload >/dev/null || true
 # Live env for apps launched from now on, so GTK follows without a relogin
 hyprctl keyword env "GTK_THEME,$gtk" >/dev/null || true
 hyprctl keyword env "ADW_DEBUG_COLOR_SCHEME,prefer-$mode" >/dev/null || true
+# waybar/swaync restart from this shell, whose env predates the switch; their children (yad hints) inherit it
+export GTK_THEME="$gtk" ADW_DEBUG_COLOR_SCHEME="prefer-$mode"
 pkill -x waybar || true; setsid -f waybar >/dev/null 2>&1 9>&-
 pkill -x swaync || true; setsid -f swaync >/dev/null 2>&1 9>&-
 for s in /tmp/kitty*; do [ -S "$s" ] && kitty @ --to "unix:$s" set-colors -a -c "$HOME/.config/kitty/$kitty_theme" 2>/dev/null || true; done

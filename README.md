@@ -13,9 +13,15 @@ A full apply copies `common/` and the chosen variant over your home directory. A
 ## Switch
 
 - **Waybar:** KooL's light/dark button (`custom/light_dark`, in the menu drawer) now runs the toggle instead of `DarkLight.sh`. Its icon shows the current mode: 󰖨 for light, 󰖔 for dark. Middle click and right click still open the wallpaper and waybar style menus.
+- **Keybind:** <kbd>SUPER</kbd> + <kbd>ALT</kbd> + <kbd>D</kbd>. The installer doesn't add this; put the line below in `~/.config/hypr/UserConfigs/UserKeybinds.conf`, which KooL upgrades leave alone:
+
+  ```
+  bindd = $mainMod ALT, D, Toggle Airy Aurora light/dark, exec, $HOME/.config/hypr/UserScripts/AiryAurora.sh toggle
+  ```
+
 - **Terminal:** `./airy.sh` or `./airy.sh toggle`.
 
-A toggle copies only the variant files, so it keeps whatever wallpaper you have set. It works out the current mode from the Airy Aurora GTK block in `~/.config/hypr/UserConfigs/ENVariables.conf`. It rewrites that block and also pushes it live with `hyprctl keyword env`, so GTK apps you open afterwards match the new mode without logging out. GTK apps that are already open keep their old theme until you restart them. A lock stops a double click from running two switches at once.
+A toggle copies only the variant files, so it keeps whatever wallpaper you have set. It works out the current mode from the Airy Aurora GTK block in `~/.config/hypr/UserConfigs/ENVariables.conf`. It rewrites that block and also pushes it live with `hyprctl keyword env`, so GTK apps you open afterwards match the new mode without logging out. Waybar and swaync are restarted with the new values too, so windows they open (like the HINT! quick tips) follow the mode. GTK apps that are already open keep their old theme until you restart them. A lock stops a double click from running two switches at once.
 
 **Needs:** Hyprland, KooL dots, waybar, swaync, rofi, hyprlock, kitty, wallust, awww (or swww), and the fonts JetBrainsMono Nerd Font and Victor Mono.
 
