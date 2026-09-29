@@ -1,0 +1,174 @@
+/* Airy Aurora Dark — night frosted pills; palette: ~/.config/wallust/colorschemes/airy-aurora-dark.json */
+
+@import '../../.config/waybar/wallust/colors-waybar.css';
+
+@define-color glass rgba(27, 30, 38, 0.62);
+@define-color glass-edge rgba(170, 204, 221, 0.16);
+
+* {
+	font-family: "JetBrainsMono Nerd Font";
+	font-weight: bold;
+	min-height: 0;
+	font-size: 97%;
+	font-feature-settings: '"zero", "ss01", "ss02", "ss03", "ss04", "ss05", "cv31"';
+}
+
+window#waybar {
+	background: transparent;
+	color: @foreground;
+}
+
+window#waybar.hidden {
+	opacity: 0.2;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+	background: @glass;
+	border: 1px solid @glass-edge;
+	border-radius: 12px;
+	padding: 1px 8px;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+}
+
+tooltip {
+	background: rgba(27, 30, 38, 0.94);
+	border: 1px solid @color2;
+	border-radius: 10px;
+}
+
+tooltip label {
+	color: @foreground;
+}
+
+/*----- workspaces / taskbar -----*/
+#taskbar button,
+#workspaces button {
+	color: @color8;
+	box-shadow: none;
+	text-shadow: none;
+	padding: 0px 5px;
+	margin: 3px 1px;
+	border-radius: 9px;
+	transition: all 0.3s ease;
+}
+
+#taskbar button:hover,
+#workspaces button:hover {
+	color: @foreground;
+	background: alpha(@color12, 0.15);
+}
+
+#taskbar button.active,
+#workspaces button.active {
+	color: @background;
+	background-image: linear-gradient(90deg, @color2, @color3);
+	padding: 0px 10px;
+}
+
+#workspaces button.urgent {
+	color: @background;
+	background: @color13;
+}
+
+/*----- modules -----*/
+#backlight, #backlight-slider, #battery, #bluetooth, #clock, #cpu, #disk,
+#idle_inhibitor, #memory, #mode, #mpris, #network, #power-profiles-daemon,
+#pulseaudio, #pulseaudio-slider, #taskbar, #temperature, #tray, #window,
+#wireplumber, #workspaces,
+#custom-backlight, #custom-browser, #custom-cava_mviz, #custom-cycle_wall,
+#custom-dot_update, #custom-file_manager, #custom-hint, #custom-hypridle,
+#custom-hyprpicker, #custom-keybinds, #custom-keyboard, #custom-light_dark,
+#custom-lock, #custom-menu, #custom-nightlight, #custom-playerctl,
+#custom-power, #custom-power_vertical, #custom-quit, #custom-reboot,
+#custom-settings, #custom-spotify, #custom-swaync, #custom-tty,
+#custom-updater, #custom-weather {
+	color: @foreground;
+	padding: 3px 6px;
+}
+
+#custom-separator {
+	color: @color4;
+}
+
+#clock,
+#custom-menu,
+#window {
+	color: @color12;
+}
+
+/* per-character pastel gradient comes from WaybarCava.sh / WaybarPlayerGradient.py */
+#custom-cava_mviz,
+#custom-playerctl,
+#mpris {
+	color: #99A8BB;
+}
+
+#network,
+#pulseaudio,
+#bluetooth,
+#custom-weather {
+	color: @color12;
+}
+
+#custom-hypridle.notactive,
+#idle_inhibitor.activated {
+	color: @color13;
+}
+
+#pulseaudio.muted,
+#network.disconnected,
+#network.disabled,
+#temperature.critical,
+#custom-power,
+#custom-updater {
+	color: @color13;
+}
+
+@keyframes blink {
+	to { color: @color13; }
+}
+
+#battery.critical:not(.charging) {
+	color: @color13;
+	animation-name: blink;
+	animation-duration: 3.0s;
+	animation-timing-function: steps(12);
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+}
+
+#tray > .passive {
+	-gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+	-gtk-icon-effect: highlight;
+}
+
+/*----- sliders -----*/
+#backlight-slider slider,
+#pulseaudio-slider slider {
+	min-width: 0px;
+	min-height: 0px;
+	opacity: 0;
+	background-image: none;
+	border: none;
+	box-shadow: none;
+}
+
+#backlight-slider trough,
+#pulseaudio-slider trough {
+	min-width: 80px;
+	min-height: 5px;
+	border-radius: 5px;
+	background: alpha(@color4, 0.35);
+}
+
+#backlight-slider highlight,
+#pulseaudio-slider highlight {
+	min-height: 10px;
+	border-radius: 5px;
+	background-image: linear-gradient(90deg, @color2, @color3);
+}
