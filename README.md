@@ -2,7 +2,7 @@
 
 A frosted, pastel rice for [KooL Hyprland](https://github.com/JaKooLit/Hyprland-Dots) (dots v2.3.20, Hyprland 0.56). It comes in light and dark modes, and one key or a waybar button switches between them. Each mode uses a fixed palette, so changing the wallpaper doesn't recolor everything.
 
-![Airy Aurora Hyprland, dark mode](docs/screenshot.jpg)
+![Airy Aurora Hyprland, dark mode with the kanji add-on](docs/screenshot.jpg)
 
 <sub>Wallpaper not included. It's a photograph whose original source hasn't been identified; if it's your work, please open an issue so it can be credited.</sub>
 
