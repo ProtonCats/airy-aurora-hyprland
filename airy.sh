@@ -54,4 +54,7 @@ export GTK_THEME="$gtk" ADW_DEBUG_COLOR_SCHEME="prefer-$mode"
 pkill -x waybar || true; setsid -f waybar >/dev/null 2>&1 9>&-
 pkill -x swaync || true; setsid -f swaync >/dev/null 2>&1 9>&-
 for s in /tmp/kitty*; do [ -S "$s" ] && kitty @ --to "unix:$s" set-colors -a -c "$HOME/.config/kitty/$kitty_theme" 2>/dev/null || true; done
+# Starship prompt, only if its config defines the matching palette (see README)
+star="$HOME/.config/starship.toml"
+grep -qs "^\[palettes\.${scheme//-/_}\]" "$star" && sed -i "s/^palette = .*/palette = \"${scheme//-/_}\"/" "$star"
 echo "Airy Aurora ${mode^} applied."
