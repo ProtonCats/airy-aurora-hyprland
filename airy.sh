@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Airy Aurora light/dark switch. Usage: airy.sh [light|dark|toggle] (default: toggle)
-# light/dark: full apply (shared files, variant files, wallpaper). toggle: swap variant files only.
+# light/dark: full apply (shared + variant files). toggle: swap variant files only.
 set -e
 repo="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
 env_conf="$HOME/.config/hypr/UserConfigs/ENVariables.conf"
@@ -44,11 +44,6 @@ else
   echo "Note: $env_conf not found; skipped the GTK env lines (the waybar switch reads them to know the mode)." >&2
 fi
 
-if [ -n "$full" ]; then
-  wall="$HOME/Pictures/wallpapers/4f3f3b208cbd6e98c69e32c612dd4f95.jpg"
-  sw="$(command -v awww || command -v swww || true)"
-  [ -n "$sw" ] && { "$sw" img "$wall" || true; }
-fi
 wallust cs -s "$HOME/.config/wallust/colorschemes/$scheme.json" || true
 hyprctl reload >/dev/null || true
 # Live env for apps launched from now on, so GTK follows without a relogin
