@@ -88,3 +88,7 @@ Dark-mode text colors are at least 5:1 contrast against the background. The full
 - Every `wallust cs` call gets the full path to the scheme file. Given only a name, wallust errors out with "many matches" when a similarly named file, such as a backup, sits next to the scheme. The wallpaper scripts (`scripts/WallustSwww.sh` and `UserScripts/WallpaperEffects.sh`) do the same, so picking a new wallpaper keeps the current mode's palette.
 - KooL upgrades overwrite `scripts/` and `waybar/ModulesCustom`. Re-run `./airy.sh light` or `./airy.sh dark` after one; that also re-applies the kanji add-on if it's on. The add-on's copies of KooL files come from dots v2.3.20, so after an upgrade that changes them, turning the add-on on would bring back the older versions.
 - Don't use KooL's `DarkLight.sh`, because it fights the fixed palette.
+
+## Credits
+
+This rice is a theme for [KooL Hyprland](https://github.com/JaKooLit/Hyprland-Dots) and ships modified copies of its files (GPL-3.0), alongside Hyprland, waybar, kitty, wallust, cava, Nord, Nordzy, the fonts and more. The full list, with authors, licenses and how each is used, is in the project's master file: [CREDITS.md](https://github.com/ProtonCats/airy-aurora/blob/main/CREDITS.md). The same project also has a [Spotify theme](https://github.com/ProtonCats/airy-aurora/tree/main/spotify).
