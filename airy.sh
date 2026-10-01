@@ -84,6 +84,16 @@ else
   echo "Note: $env_conf not found; skipped the GTK env lines (the waybar switch reads them to know the mode)." >&2
 fi
 
+# GTK icons follow the mode (Nordzy-dark has light glyphs, Nordzy dark ones); skipped when not installed.
+# Qt (Kvantum + a fixed dark scheme) stays dark in both modes, so qt5ct/qt6ct are left alone.
+[ "$mode" = dark ] && icons=Nordzy-dark || icons=Nordzy
+for d in "$HOME/.local/share/icons" "$HOME/.icons" /usr/share/icons; do [ -d "$d/$icons" ] && icons_found=1; done
+if [ -n "${icons_found:-}" ]; then
+  gsettings set org.gnome.desktop.interface icon-theme "$icons" || true
+else
+  echo "Note: icon theme $icons not installed; icons left as they were (see README)." >&2
+fi
+
 wallust cs -s "$HOME/.config/wallust/colorschemes/$scheme.json" || true
 hyprctl reload >/dev/null || true
 # Live env for apps launched from now on, so GTK follows without a relogin
