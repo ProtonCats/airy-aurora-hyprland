@@ -46,6 +46,18 @@
 		"disk",
 	]
 },
+"group/tray_drawer": {
+	"orientation": "inherit",
+	"drawer": {
+		"transition-duration": 500,
+		"children-class": "tray-child",
+		"transition-left-to-right": true
+        },
+	"modules": [
+		"custom/traytoggle",
+		"tray",
+	]
+},
 "group/laptop": {
 	"orientation": "inherit",
 	"modules": [

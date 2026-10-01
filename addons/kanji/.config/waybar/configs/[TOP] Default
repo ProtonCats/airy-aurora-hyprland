@@ -42,7 +42,7 @@
 	],
 
 "modules-right": [
-	"tray",
+	"group/tray_drawer",
 	"network#speed",
 	"custom/separator#dot-line",
 	"group/mobo_drawer",

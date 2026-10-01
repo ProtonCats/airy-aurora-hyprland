@@ -45,7 +45,7 @@ tooltip label {
 /*----- workspaces / taskbar -----*/
 #taskbar button,
 #workspaces button {
-	color: @color8;
+	color: #5E81AC;
 	box-shadow: none;
 	text-shadow: none;
 	padding: 0px 5px;
@@ -81,7 +81,7 @@ tooltip label {
 #custom-dot_update, #custom-file_manager, #custom-hint, #custom-hypridle,
 #custom-hyprpicker, #custom-keybinds, #custom-keyboard, #custom-light_dark,
 #custom-lock, #custom-menu, #custom-nightlight, #custom-playerctl,
-#custom-power, #custom-power_vertical, #custom-quit, #custom-reboot,
+#custom-power, #custom-power_vertical, #custom-traytoggle, #custom-quit, #custom-reboot,
 #custom-settings, #custom-spotify, #custom-swaync, #custom-tty,
 #custom-updater, #custom-weather {
 	color: @foreground;

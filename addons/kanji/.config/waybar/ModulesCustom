@@ -26,28 +26,28 @@
 },
 
 "custom/file_manager": {
-	"format": "書 ",
+	"format": "<span color='#5E81AC'>󰉋</span> ",
 	"on-click": "$HOME/.config/hypr/scripts/WaybarScripts.sh --files",
 	"tooltip": true,
 	"tooltip-format": "File Manager",
 },
 
 "custom/tty": {
-	"format": "端 ",
+	"format": "<span color='#5E81AC'>󰆍</span> ",
 	"on-click": "$HOME/.config/hypr/scripts/WaybarScripts.sh --term",
 	"tooltip": true,
 	"tooltip-format": "Launch Terminal",
 },
 
 "custom/browser": {
-	"format": "覧 ",
+	"format": "<span color='#5E81AC'>󰖟</span> ",
 	"on-click": "xdg-open https://",
 	"tooltip": true,
 	"tooltip-format": "Launch Browser",
 },
 
 "custom/settings": {
-	"format": "設 ",
+	"format": "<span color='#5E81AC'>󰒓</span> ",
 	"on-click": "$HOME/.config/hypr/scripts/Kool_Quick_Settings.sh",
 	"tooltip": true,
 	"tooltip-format": "Launch KooL Hyprland Settings Menu",
@@ -71,7 +71,7 @@
 },
 
 "custom/dot_update": {
-	"format": " 新 ",
+	"format": " <span color='#5E81AC'>󰚰</span> ",
 	"on-click": "$HOME/.config/hypr/scripts/KooLsDotsUpdate.sh",
 	"tooltip": true,
 	"tooltip-format": "Check KooL Dots update\nIf available",
@@ -97,8 +97,8 @@
 },
 
 "custom/light_dark": {
-	"exec": "grep -qs '^### Airy Aurora: dark' $HOME/.config/hypr/UserConfigs/ENVariables.conf && echo 夜 || echo 昼",
-	"format": "{} ",
+	"exec": "grep -qs '^### Airy Aurora: dark' $HOME/.config/hypr/UserConfigs/ENVariables.conf && echo 󰖔 || echo 󰖨",
+	"format": "<span color='#5E81AC'>{}</span> ",
 	"on-click": "setsid -f $HOME/.config/hypr/UserScripts/AiryAurora.sh toggle",
 	"on-click-right": "$HOME/.config/hypr/scripts/WaybarStyles.sh",
 	"on-click-middle": "$HOME/.config/hypr/UserScripts/WallpaperSelect.sh",
@@ -120,14 +120,20 @@
 },
 
 "custom/lock": {
-	"format": "錠",
+	"format": "<span color='#5E81AC'>󰌾</span>",
 	"on-click": "$HOME/.config/hypr/scripts/LockScreen.sh",
 	"tooltip": true,
 	"tooltip-format": "󰷛 Screen Lock",
 },
 
+"custom/traytoggle": {
+	"format": "<span color='#5E81AC'>󰇘</span>",
+	"tooltip": true,
+	"tooltip-format": "System tray",
+},
+
 "custom/menu": {
-	"format": "􏀀 ",
+	"format": "<span color='#5E81AC'>󰀻</span> ",
 	"on-click": "pkill rofi || rofi -show drun -modi run,drun,filebrowser,window",
 	"on-click-middle": "$HOME/.config/hypr/UserScripts/WallpaperSelect.sh",
 	"on-click-right": "$HOME/.config/hypr/scripts/WaybarLayout.sh",
@@ -155,7 +161,7 @@
 },
     
 "custom/power": {
-	"format": " 􏀞 ",
+	"format": " 󰐥 ",
 	"on-click": "$HOME/.config/hypr/scripts/Wlogout.sh",
 	"on-click-right": "$HOME/.config/hypr/scripts/ChangeBlur.sh",
 	"tooltip": true,
@@ -181,14 +187,14 @@
 	"tooltip-format": "Left Click: Launch Notification Center\nRight Click: Do not Disturb",
 	"format": "{} {icon} ",
 	"format-icons": {
-		"notification": "􏀈<span foreground='red'><sup>􏀊</sup></span>",
-		"none": "􏀈",
-		"dnd-notification": "􏀉<span foreground='red'><sup>􏀊</sup></span>",
-		"dnd-none": "􏀉",
-		"inhibited-notification": "􏀈<span foreground='red'><sup>􏀊</sup></span>",
-		"inhibited-none": "􏀈",
-		"dnd-inhibited-notification": "􏀉<span foreground='red'><sup>􏀊</sup></span>",
-		"dnd-inhibited-none": "􏀉",
+		"notification": "<span color='#5E81AC'>󱅫</span>",
+		"none": "<span color='#5E81AC'>󰂚</span>",
+		"dnd-notification": "<span color='#5E81AC'>󰂛</span><span foreground='#BF616A'><sup>●</sup></span>",
+		"dnd-none": "<span color='#5E81AC'>󰂛</span>",
+		"inhibited-notification": "<span color='#5E81AC'>󱅫</span>",
+		"inhibited-none": "<span color='#5E81AC'>󰂚</span>",
+		"dnd-inhibited-notification": "<span color='#5E81AC'>󰂛</span><span foreground='#BF616A'><sup>●</sup></span>",
+		"dnd-inhibited-none": "<span color='#5E81AC'>󰂛</span>",
 	},
 	"return-type": "json",
 	"exec-if": "which swaync-client",

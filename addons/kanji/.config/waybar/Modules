@@ -153,7 +153,7 @@
 },
 
 "cpu": {
-	"format": "算 {usage}%",
+	"format": "<span color='#5E81AC'>󰻠</span> {usage}%",
 	"interval": 1,
 	"min-length": 5,
 	"format-alt-click": "click",
@@ -169,7 +169,7 @@
 	//"format": "󰋊",
 	"path": "/",
 	//"format-alt-click": "click",
-	"format": "盤 {percentage_used}%",
+	"format": "<span color='#5E81AC'>󰋊</span> {percentage_used}%",
 	//"tooltip": true,
 	"tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)",
 },
@@ -227,8 +227,8 @@
 
 "memory": {
 	"interval": 10,
-	"format": "記 {used:0.1f}G",
-	"format-alt": "記 {percentage}%",
+	"format": "<span color='#5E81AC'>󰍛</span> {used:0.1f}G",
+	"format-alt": "<span color='#5E81AC'>󰍛</span> {percentage}%",
 	"format-alt-click": "click",
 	"tooltip": true,
 	"tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
@@ -287,9 +287,9 @@
 "network#speed": {
 	"interval": 1,
 	"format": "{ifname}",
-	"format-wifi": "網 ↑{bandwidthUpBytes} ↓{bandwidthDownBytes}",
-	"format-ethernet": "網 ↑{bandwidthUpBytes} ↓{bandwidthDownBytes}",
-	"format-disconnected": "断",
+	"format-wifi": "<span color='#5E81AC'>󰖩</span> ↑{bandwidthUpBytes} ↓{bandwidthDownBytes}",
+	"format-ethernet": "<span color='#5E81AC'>󰈀</span> ↑{bandwidthUpBytes} ↓{bandwidthDownBytes}",
+	"format-disconnected": "<span color='#5E81AC'>󰌙</span>",
 	"tooltip-format": "{ipaddr}",
 	"format-linked": "󰈁 {ifname} (No IP)",
 	"tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
@@ -307,25 +307,25 @@
   "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
   "tooltip": true,
   "format-icons": {
-    "default": "中",
-    "performance": "強",
-    "balanced": "中",
-    "power-saver": "弱"
+    "default": "<span color='#5E81AC'>󰾅</span>",
+    "performance": "<span color='#5E81AC'>󰓅</span>",
+    "balanced": "<span color='#5E81AC'>󰾅</span>",
+    "power-saver": "<span color='#5E81AC'>󰌪</span>"
   }
 },
 
 "pulseaudio": {
 	"format": "{icon} {volume}%",
 	"format-bluetooth": "{icon} {volume}%",
-	"format-muted": "静",
+	"format-muted": "<span color='#5E81AC'>󰖁</span>",
 	"format-icons": {
-		"headphone": "音",
-		"hands-free": "音",
-		"headset": "音",
-		"phone": "音",
-		"portable": "音",
-		"car": "音",
-		"default": ["音"],
+		"headphone": "<span color='#5E81AC'>󰕾</span>",
+		"hands-free": "<span color='#5E81AC'>󰕾</span>",
+		"headset": "<span color='#5E81AC'>󰕾</span>",
+		"phone": "<span color='#5E81AC'>󰕾</span>",
+		"portable": "<span color='#5E81AC'>󰕾</span>",
+		"car": "<span color='#5E81AC'>󰕾</span>",
+		"default": ["<span color='#5E81AC'>󰕾</span>"],
 		"ignored-sinks": [
 			"Easy Effects Sink"
 		],
