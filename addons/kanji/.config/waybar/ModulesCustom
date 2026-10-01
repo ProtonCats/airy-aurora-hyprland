@@ -126,6 +126,14 @@
 	"tooltip-format": "󰷛 Screen Lock",
 },
 
+"custom/cpuram": {
+	"exec": "$HOME/.config/hypr/UserScripts/WaybarCpuRam.py",
+	"return-type": "json",
+	"format": "{}",
+	"tooltip": true,
+	"on-click": "$HOME/.config/hypr/scripts/WaybarScripts.sh --btop",
+},
+
 "custom/traytoggle": {
 	"format": "<span color='#5E81AC'>󰇘</span>",
 	"tooltip": true,

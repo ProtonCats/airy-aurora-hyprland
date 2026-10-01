@@ -36,13 +36,12 @@
 	"orientation": "inherit",
 	"drawer": {
 		"transition-duration": 500,
-		"children-class": "cpu",
+		"children-class": "custom/cpuram",
 		"transition-left-to-right": true
         },
 	"modules": [
-		"cpu",
-		"power-profiles-daemon",	
-		"memory",
+		"custom/cpuram",
+		"power-profiles-daemon",
 		"disk",
 	]
 },
