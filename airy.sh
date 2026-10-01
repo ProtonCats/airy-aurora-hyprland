@@ -69,6 +69,7 @@ fi
 
 if [ -n "$full" ]; then
   install_tree common
+  fc-cache -f "$HOME/.local/share/fonts" >/dev/null 2>&1 || true
   # common/ carries the plain ModulesCustom, so an enabled add-on goes back on top of it
   [ -e "$kanji_state" ] && install_tree addons/kanji pre-kanji
 fi
