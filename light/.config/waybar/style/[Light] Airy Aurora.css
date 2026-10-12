@@ -172,8 +172,9 @@ tooltip label {
 	background-image: linear-gradient(90deg, @color2, @color3);
 }
 
-/* CPU / RAM pill: an inner capsule; the two line colors come from the palette (WaybarCpuRam.py) */
-#custom-cpuram {
+/* CPU / RAM / GPU pill: an inner capsule around the graph png (WaybarCpuRam.py) */
+#image.cpuram,
+#image.net {
 	padding: 0px 10px;
 	margin: 3px 2px;
 	border-radius: 24px;

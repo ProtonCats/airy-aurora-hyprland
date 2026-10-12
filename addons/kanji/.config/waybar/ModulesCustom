@@ -97,7 +97,7 @@
 },
 
 "custom/light_dark": {
-	"exec": "grep -qs '^### Airy Aurora: dark' $HOME/.config/hypr/UserConfigs/ENVariables.conf && echo 󰖔 || echo 󰖨",
+	"exec": "if [ -f $HOME/.config/hypr/hyprland.lua ]; then grep -qsE 'GTK_THEME.*Breeze-Dark' $HOME/.config/hypr/UserConfigs/ENVariables.lua; else grep -qs '^### Airy Aurora: dark' $HOME/.config/hypr/UserConfigs/ENVariables.conf; fi && echo 󰖔 || echo 󰖨",
 	"format": "<span color='#5E81AC'>{}</span> ",
 	"on-click": "setsid -f $HOME/.config/hypr/UserScripts/AiryAurora.sh toggle",
 	"on-click-right": "$HOME/.config/hypr/scripts/WaybarStyles.sh",

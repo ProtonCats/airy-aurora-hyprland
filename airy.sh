@@ -3,7 +3,9 @@
 # light/dark: full apply (shared + variant files). toggle: swap variant files only. kanji: optional waybar add-on.
 set -e
 repo="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
-env_conf="$HOME/.config/hypr/UserConfigs/ENVariables.conf"
+# The live format is whichever entry file Hyprland loads: hyprland.lua wins over hyprland.conf
+[ -f "$HOME/.config/hypr/hyprland.lua" ] && fmt=lua || fmt=conf
+env_file="$HOME/.config/hypr/UserConfigs/ENVariables.$fmt"
 kanji_state="${XDG_STATE_HOME:-$HOME/.local/state}/airy-aurora/kanji"
 
 # One switch at a time; a double click would otherwise race on the same files
@@ -14,7 +16,8 @@ mode="${1:-toggle}"
 full=1
 if [ "$mode" = toggle ] || [ "$mode" = kanji ]; then
   full=
-  grep -qs '^### Airy Aurora: dark' "$env_conf" && cur=dark || cur=light
+  if [ "$fmt" = lua ]; then dark_re='GTK_THEME.*Breeze-Dark'; else dark_re='^### Airy Aurora: dark'; fi
+  grep -qsE "$dark_re" "$env_file" && cur=dark || cur=light
   if [ "$mode" = toggle ]; then [ "$cur" = dark ] && mode=light || mode=dark; fi
 fi
 case "$mode" in
@@ -28,7 +31,9 @@ esac
 install_tree() {
   local bak="${2:-pre-airy}"
   cd "$repo/$1"
-  find . \( -type f -o -type l \) -print0 | while IFS= read -r -d '' f; do
+  # Only the live format's Hyprland modules; the other twin would sit unused (or go stale)
+  [ "$fmt" = lua ] && skip='*.conf' || skip='*.lua'
+  find . \( -type f -o -type l \) ! -path "./.config/hypr/UserConfigs/$skip" -print0 | while IFS= read -r -d '' f; do
     dst="$HOME/${f#./}"
     mkdir -p "$(dirname "$dst")"
     [ -e "$dst" ] && [ ! -e "$dst.bak-$bak" ] && ! cmp -s "$f" "$dst" && cp -a "$dst" "$dst.bak-$bak"
@@ -78,11 +83,16 @@ mkdir -p "$HOME/.config/hypr/UserScripts"
 ln -sfn "$repo/airy.sh" "$HOME/.config/hypr/UserScripts/AiryAurora.sh"
 
 # GTK theme under Hyprland only; swaps out any earlier Airy Aurora block, other env lines are kept
-if [ -f "$env_conf" ]; then
-  sed -i -E '/^### Airy Aurora: (light|dark) GTK/d; /^env = GTK_THEME,Breeze(-Dark)?$/d; /^env = ADW_DEBUG_COLOR_SCHEME,prefer-(light|dark)$/d' "$env_conf"
-  printf '### Airy Aurora: %s GTK in Hyprland only ###\nenv = GTK_THEME,%s\nenv = ADW_DEBUG_COLOR_SCHEME,prefer-%s\n' "$mode" "$gtk" "$mode" >> "$env_conf"
+if [ -f "$env_file" ]; then
+  if [ "$fmt" = lua ]; then
+    sed -i -E '/^-- Airy Aurora: (light|dark) GTK/d; /^hl\.env\("GTK_THEME", "Breeze(-Dark)?"\)$/d; /^hl\.env\("ADW_DEBUG_COLOR_SCHEME", "prefer-(light|dark)"\)$/d' "$env_file"
+    printf -- '-- Airy Aurora: %s GTK in Hyprland only\nhl.env("GTK_THEME", "%s")\nhl.env("ADW_DEBUG_COLOR_SCHEME", "prefer-%s")\n' "$mode" "$gtk" "$mode" >> "$env_file"
+  else
+    sed -i -E '/^### Airy Aurora: (light|dark) GTK/d; /^env = GTK_THEME,Breeze(-Dark)?$/d; /^env = ADW_DEBUG_COLOR_SCHEME,prefer-(light|dark)$/d' "$env_file"
+    printf '### Airy Aurora: %s GTK in Hyprland only ###\nenv = GTK_THEME,%s\nenv = ADW_DEBUG_COLOR_SCHEME,prefer-%s\n' "$mode" "$gtk" "$mode" >> "$env_file"
+  fi
 else
-  echo "Note: $env_conf not found; skipped the GTK env lines (the waybar switch reads them to know the mode)." >&2
+  echo "Note: $env_file not found; skipped the GTK env lines (the waybar switch reads them to know the mode)." >&2
 fi
 
 # GTK icons follow the mode (Nordzy-dark has light glyphs, Nordzy dark ones); skipped when not installed.
@@ -97,9 +107,14 @@ fi
 
 wallust cs -s "$HOME/.config/wallust/colorschemes/$scheme.json" || true
 hyprctl reload >/dev/null || true
-# Live env for apps launched from now on, so GTK follows without a relogin
-hyprctl keyword env "GTK_THEME,$gtk" >/dev/null || true
-hyprctl keyword env "ADW_DEBUG_COLOR_SCHEME,prefer-$mode" >/dev/null || true
+# A reload does not change the env of later launches, so set it live too
+if [ "$fmt" = lua ]; then
+  hyprctl eval "hl.env(\"GTK_THEME\", \"$gtk\")" >/dev/null || true
+  hyprctl eval "hl.env(\"ADW_DEBUG_COLOR_SCHEME\", \"prefer-$mode\")" >/dev/null || true
+else
+  hyprctl keyword env "GTK_THEME,$gtk" >/dev/null || true
+  hyprctl keyword env "ADW_DEBUG_COLOR_SCHEME,prefer-$mode" >/dev/null || true
+fi
 restart_waybar "$mode"
 pkill -x swaync || true; setsid -f swaync >/dev/null 2>&1 9>&-
 for s in /tmp/kitty*; do [ -S "$s" ] && kitty @ --to "unix:$s" set-colors -a -c "$HOME/.config/kitty/$kitty_theme" 2>/dev/null || true; done
